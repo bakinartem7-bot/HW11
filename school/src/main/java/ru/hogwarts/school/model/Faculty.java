@@ -1,5 +1,9 @@
 package ru.hogwarts.school.model;
+
 import jakarta.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 public class Faculty {
     @Id
@@ -7,6 +11,9 @@ public class Faculty {
     private Long id;
     private String name;
     private String color;
+
+    @OneToMany(mappedBy = "faculty", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Student> students = new HashSet<>();
 
     public Faculty() {}
 
@@ -24,4 +31,7 @@ public class Faculty {
 
     public String getColor() { return color; }
     public void setColor(String color) { this.color = color; }
+
+    public Set<Student> getStudents() { return students; }
+    public void setStudents(Set<Student> students) { this.students = students; }
 }
