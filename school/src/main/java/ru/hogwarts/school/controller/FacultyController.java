@@ -17,6 +17,7 @@ public class FacultyController {
         this.facultyService = facultyService;
     }
 
+    // Создание факультета (POST)
     @PostMapping
     public Faculty createFaculty(@RequestBody Faculty faculty) {
         return facultyService.createFaculty(faculty);
@@ -45,15 +46,5 @@ public class FacultyController {
     @GetMapping("/color")
     public List<Faculty> getFacultiesByColor(@RequestParam String color) {
         return facultyService.getFacultiesByColor(color);
-    }
-
-    @GetMapping("/search")
-    public List<Faculty> searchFaculties(
-            @RequestParam(required = false) String query
-    ) {
-        if (query == null || query.isEmpty()) {
-            return facultyService.getAllFaculties();
-        }
-        return facultyService.getAllFaculties();
     }
 }
