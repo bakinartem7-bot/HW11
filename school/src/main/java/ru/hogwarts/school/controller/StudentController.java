@@ -1,5 +1,6 @@
 package ru.hogwarts.school.controller;
 
+import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,4 +47,20 @@ public class StudentController {
     public List<Student> getStudentsByAge(@RequestParam int age) {
         return studentService.getStudentsByAge(age);
     }
+    @GetMapping("/between-age")
+    public List<Student> getStudentsByAgeRange(
+            @RequestParam int min,
+            @RequestParam int max
+    ) {
+        return studentService.getStudentsByAgeBetween(min, max);
+    }
+    @GetMapping("/{id}/faculty")
+    public Faculty getStudentFaculty(@PathVariable Long id) {
+        Student student = studentService.getStudent(id);
+        if (student == null) {
+            throw new RuntimeException("Student not found");
+        }
+        return student.getFaculty();
+    }
+
 }
